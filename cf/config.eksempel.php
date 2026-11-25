@@ -1,5 +1,6 @@
 <?php
-// Kopier til cf/config.php og fyll ut. cf/config.php skal aldri inn i git eller zip.
+// install.php lager cf/config.php automatisk. Denne filen viser alle innstillingene.
+// cf/config.php skal aldri inn i git eller zip.
 return [
     // Lag hashen med: php -r 'echo password_hash("din-nøkkel", PASSWORD_DEFAULT), "\n";'
     // Cron kaller da https://<din-side>/cron.php?nokkel=din-nøkkel
@@ -10,7 +11,8 @@ return [
     // Linjen over overskriften. Tom = vertsnavnet siden kjører på.
     'undertittel' => '',
     // Logo (vises 76×76, kvadratisk, gjerne gjennomsiktig) og ikon i nettleserfanen.
-    // Relativt til siden (f.eks. 'eget/logo.webp') eller en https-adresse. Tom = assets/logo.svg.
+    // Relativt til siden (f.eks. 'eget/logo.webp') eller en https-adresse. Tom = assets/logo.svg (pulsen).
+    // Andre innebygde: 'assets/logoer/signal.svg' og 'assets/logoer/radar.svg'.
     'logo' => '',
     'ikon' => '',
     // User-Agent mot kildene. Ta gjerne med adressen til siden din, så leverandørene ser hvem som henter.

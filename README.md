@@ -34,7 +34,7 @@ Se `cf/config.eksempel.php`. Det viktigste:
 | Innstilling | Hva |
 |---|---|
 | `navn`, `undertittel` | Navnet på siden og linjen over overskriften (standard: vertsnavnet) |
-| `logo`, `ikon` | Logo (76×76) og ikon i fanen, relativt til siden eller https. Standard: `assets/logo.svg`. Egne filer kan ligge i `eget/` (ikke i git) |
+| `logo`, `ikon` | Logo (76×76) og ikon i fanen, relativt til siden eller https. Standard: `assets/logo.svg` (pulsen). Innebygde alternativer: `assets/logoer/signal.svg`, `assets/logoer/radar.svg`. Egne filer kan ligge i `eget/` (ikke i git) |
 | `kilder` | Hvilke tjenester som vises, i rekkefølge: `['nhn', 'digdir', 'altinn']`. Utelatt = alle |
 | `egne_kilder` | Egne Statuspage-sider: `'github' => ['navn' => 'GitHub', 'type' => 'statuspage', 'side' => 'https://www.githubstatus.com/']` |
 | `sprak` | Grensesnittet på `nb` (standard) eller `en` |
@@ -46,17 +46,22 @@ Se `cf/config.eksempel.php`. Det viktigste:
 Selve meldingene fra leverandørene oversettes ikke: titler og tekster står som leverandørene skriver dem, oftest på norsk,
 og er merket `lang="nb"` når grensesnittet er engelsk. Nytt språk: legg til en blokk i `tekster.json` med samme nøkler.
 
-## Oppsett
-1. Lag et (under)domene og legg filene der. PHP 8.1 eller nyere med curl.
-2. Last opp filene. Kopier `cf/config.eksempel.php` til `cf/config.php` og fyll ut hashen av cron-nøkkelen:
-   `php -r 'echo password_hash("din-nøkkel", PASSWORD_DEFAULT), "\n";'`
-3. Åpne `https://<din-side>/oppdater.php?nokkel=din-nøkkel` (lager `data/` og sjekker at PHP kan skrive der; kan kjøres flere ganger).
-4. Sett opp cron (eller samme eksterne tjeneste som Paragrafkarusellen) hver time, f.eks. 7 minutter over:
-   `7 * * * * curl -fsS "https://<din-side>/cron.php?nokkel=din-nøkkel"`
+## Installering
+1. Legg filene på et (under)domene. PHP 8.1 eller nyere med curl, json, mbstring og simplexml.
+2. Åpne `https://<din-side>/` – du sendes til `install.php` – og trykk **Installer**. (Eller kjør `php install.php`.)
+   Installeringen sjekker PHP-versjonen og utvidelsene, at `cf/` og `data/` er skrivbare og at fillåsing virker,
+   at serveren når kildene over HTTPS og at `cf/`, `lib/` og `data/` er sperret for nettlesere.
+   Så lager den en tilfeldig nøkkel, skriver `cf/config.php` (bare hashen av nøkkelen), lager `data/` og henter alt første gang.
+3. Skriv ned nøkkelen (den vises bare én gang) og sett opp cron hver time, f.eks. 7 minutter over:
+   `7 * * * * curl -fsS "https://<din-side>/cron.php?nokkel=<nøkkelen>"` – eller `php /sti/til/cron.php` uten nøkkel.
+
+Når `cf/config.php` finnes, gjør `install.php` ingenting. Ny nøkkel: slett `cf/config.php` og installer på nytt.
+Ved oppdatering av koden: kjør `oppdater.php?nokkel=<nøkkelen>` (eller `php oppdater.php`).
 
 `cf/config.php` skal aldri inn i git eller zip.
 
 ## Filene
+- `install.php` – automatisk installering (sjekker, nøkkel, `cf/config.php`, `data/`, første henting).
 - `index.php`, `assets/` – siden (fanene Status nå og Tidslinje, fire fargetemaer: Mørk, Varm, Blågrønn; ikonknapper).
 - `api.php` – `a=status` og `a=tidslinje` (90 dager tilbake, 14 frem).
 - `lib/kilder.php` (kildene, nivåene), `lib/tolk.php` (én tolker per type), `lib/lagre.php`, `lib/synk.php` (låsen), `lib/http.php`.

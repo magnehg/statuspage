@@ -17,16 +17,25 @@ require_once __DIR__ . '/tolk.php';
 require_once __DIR__ . '/lagre.php';
 require_once __DIR__ . '/synk.php';
 
-function konfig(): array
+const KONFIGFIL = __DIR__ . '/../cf/config.php';
+
+/** Innstillingene i cf/config.php. Er siden ikke installert, sendes man til install.php. */
+function konfig(?array $ny = null): array
 {
     static $k = null;
+    if ($ny !== null) {
+        return $k = $ny;
+    }
     if ($k === null) {
-        $fil = __DIR__ . '/../cf/config.php';
-        if (!is_file($fil)) {
-            http_response_code(500);
-            exit("Mangler cf/config.php (se cf/config.eksempel.php).\n");
+        if (!is_file(KONFIGFIL)) {
+            if (PHP_SAPI === 'cli') {
+                fwrite(STDERR, "Ikke installert ennå. Kjør: php install.php\n");
+                exit(1);
+            }
+            header('Location: install.php', true, 302);
+            exit;
         }
-        $k = require $fil;
+        $k = require KONFIGFIL;
     }
     return $k;
 }

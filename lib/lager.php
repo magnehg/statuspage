@@ -25,6 +25,7 @@ function data_mappe(): string
                 throw new RuntimeException("Kan ikke lage mappen $m$under");
             }
         }
+        $m = realpath($m) ?: $m;
         if (!is_file("$m/.htaccess")) {
             @file_put_contents("$m/.htaccess", "Require all denied\n");
         }

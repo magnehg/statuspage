@@ -193,3 +193,24 @@ h1 { margin: 2px 0 0; font-family: var(--font-h); font-size: clamp(28px, 3.4vw, 
 .bunn .kildekode a { display: inline-flex; align-items: center; gap: 6px; color: var(--tekst2); }
 .bunn .kildekode a:hover { color: var(--tekst); }
 .bunn .kildekode svg { width: 16px; height: 16px; }
+
+/* Installeringen */
+.installer { max-width: 860px; }
+.installer h1 { font-size: 34px; }
+.installer .boks { background: var(--flate2); border: 1px solid var(--kant); border-radius: 14px; padding: 20px 24px; }
+.installer .boks.ok { border-color: var(--ok-ikon); }
+.installer h2 { margin: 0 0 10px; font-size: 20px; }
+.installer h3 { margin: 18px 0 6px; font-size: 16px; }
+.installer p { margin: 8px 0; color: var(--tekst2); }
+.installer code { font-family: var(--mono); font-size: 14px; }
+.installer pre { overflow-x: auto; background: var(--bg); border: 1px solid var(--kant); border-radius: 8px; padding: 10px 12px; }
+.installer .nokkel code { display: inline-block; font-size: 20px; padding: 8px 14px; border-radius: 8px; background: var(--bg); border: 2px solid var(--ok-ikon); color: var(--tekst); user-select: all; word-break: break-all; }
+.sjekker { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.sjekker li { padding: 8px 12px 8px 36px; border-radius: 8px; background: var(--bg); position: relative; color: var(--tekst2); }
+.sjekker li strong { color: var(--tekst); margin-right: 6px; }
+.sjekker li::before { position: absolute; left: 12px; top: 8px; font-weight: 700; }
+.sjekker li.bestatt::before { content: "✓"; color: var(--ok-ikon); }
+.sjekker li.advarsel::before { content: "!"; color: var(--redusert-ikon); }
+.sjekker li.feilet::before { content: "✕"; color: var(--nede-ikon); }
+.feiltekst { color: var(--nede-tekst) !important; font-weight: 600; }
+.knapp { display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 10px; border: 0; background: var(--aktiv-bg); color: var(--aktiv-tekst); font-weight: 700; text-decoration: none; cursor: pointer; font-size: 16px; }

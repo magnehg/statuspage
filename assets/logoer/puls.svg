@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Driftsstatus">
+  <rect x="4" y="4" width="112" height="112" rx="30" fill="#12323a"/>
+  <rect x="4" y="4" width="112" height="112" rx="30" fill="none" stroke="#1f4b55" stroke-width="2"/>
+  <path d="M18 64h20l8-20 14 40 10-26h12" fill="none" stroke="#eef6f7" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="94" cy="58" r="10" fill="#4cd38a"/>
+  <circle cx="94" cy="58" r="10" fill="none" stroke="#12323a" stroke-width="3"/>
+</svg>
