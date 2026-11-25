@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Driftsstatus">
+  <circle cx="60" cy="60" r="56" fill="#12323a"/>
+  <circle cx="60" cy="60" r="56" fill="none" stroke="#4cd38a" stroke-width="6"/>
+  <path d="M22 62h18l9-22 14 44 10-26h25" fill="none" stroke="#eef6f7" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
