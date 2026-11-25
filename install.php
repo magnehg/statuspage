@@ -15,6 +15,9 @@ const DATA_STANDARD = __DIR__ . '/data';
 
 $cli = PHP_SAPI === 'cli';
 $installert = is_file(KONFIGFIL);
+if (!$installert) {
+    konfig([]); // tom konfigurasjon til cf/config.php er skrevet
+}
 
 /** @return list<array{navn:string, ok:bool|null, tekst:string}>  ok: true = bestått, false = stopper, null = advarsel */
 function sjekker(bool $cli): array
@@ -96,7 +99,15 @@ function basis_url(): string
 }
 
 /** Skriver cf/config.php med hashen av en ny nøkkel. Gir nøkkelen. */
-function installer(): array
+/** Gyldige kilde-id-er av det som er valgt (i rekkefølgen i mulige_kilder()), eller standardutvalget. */
+function valgte_kilder(array $valgt): array
+{
+    $valgt = array_flip(array_map('strval', $valgt));
+    $ut = array_values(array_filter(array_keys(mulige_kilder()), fn ($id) => isset($valgt[$id])));
+    return $ut ?: standard_kilder();
+}
+
+function installer(array $kilder): array
 {
     $nokkel = bin2hex(random_bytes(16));
     $hash = password_hash($nokkel, PASSWORD_DEFAULT);
@@ -115,7 +126,8 @@ function installer(): array
         . "    'sprak' => 'nb',\n"
         . "    'sprak_valg' => true,\n"
         . "    'maks_alder' => 300,\n"
-        . "    // 'kilder' => ['nhn', 'digdir', 'altinn', 'stoe', 'skatt', 'fiks', 'azure', 'sikt', 'aidn'],\n"
+        . "    // Tjenestene som vises, i rekkefølge. Alle som kan velges: ALLE_KILDER i lib/kilder.php og lib/katalog.json.\n"
+        . "    'kilder' => " . var_export($kilder, true) . ",\n"
         . "];\n";
     // Skriv bare hvis filen ikke finnes (x), så to samtidige installeringer ikke overskriver hverandre.
     $f = @fopen(KONFIGFIL, 'x');
@@ -148,7 +160,13 @@ if ($cli) {
         echo "\nRett feilene over og kjør igjen.\n";
         exit(1);
     }
-    $r = installer();
+    $valgt = standard_kilder();
+    foreach ($argv as $a) {
+        if (str_starts_with($a, '--kilder=')) {
+            $valgt = valgte_kilder(explode(',', substr($a, 9)));
+        }
+    }
+    $r = installer($valgt);
     echo "\nInstallert. Datamappe: {$r['mappe']}\nFørste henting: {$r['synk']['resultat']}\n";
     foreach ($r['synk']['kilder'] ?? [] as $id => $res) {
         echo "  $id: $res\n";
@@ -169,7 +187,7 @@ $sjekk = $installert ? [] : sjekker(false);
 $kan = !$installert && !array_filter($sjekk, fn ($s) => $s['ok'] === false);
 if ($kan && ($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
     try {
-        $resultat = installer();
+        $resultat = installer(valgte_kilder((array) ($_POST['kilder'] ?? [])));
         $installert = true;
     } catch (Throwable $e) {
         $feil = $e->getMessage();
@@ -229,7 +247,33 @@ $base = basis_url();
 <?php endif; ?>
 <?php if ($kan): ?>
     <p>Installeringen lager en tilfeldig nøkkel, skriver <code>cf/config.php</code>, lager datamappen og henter status fra alle kildene første gang (10–20 sekunder).</p>
-    <form method="post"><button class="knapp" type="submit">Installer</button></form>
+    <form method="post" class="installskjema">
+      <h2>Hvilke tjenester skal vises?</h2>
+      <p>De innebygde er valgt. Du kan endre utvalget senere i <code>cf/config.php</code> (<code>kilder</code>).</p>
+      <p class="velgverktoy"><label class="skjult" for="kildeSok">Søk</label><input type="search" id="kildeSok" placeholder="Søk etter tjeneste …" autocomplete="off"> <span id="antallValgt" aria-live="polite"></span></p>
+<?php
+    $grupper = [];
+    foreach (mulige_kilder() as $id => $k) {
+        $grupper[$k['kategori'] ?? 'annet'][$id] = $k;
+    }
+    $kat = katalog()['kategorier'] + ['egne' => ['nb' => 'Egne kilder']];
+    $standard = array_flip(standard_kilder());
+    foreach ($kat as $kode => $tekst):
+        if (empty($grupper[$kode])) {
+            continue;
+        }
+        uasort($grupper[$kode], fn ($a, $b) => strcmp(mb_strtolower($a['navn']), mb_strtolower($b['navn'])));
+?>
+      <fieldset class="kildegruppe">
+        <legend><?= h($tekst['nb'] ?? $kode) ?></legend>
+<?php foreach ($grupper[$kode] as $id => $k): ?>
+        <label class="kildevalg"><input type="checkbox" name="kilder[]" value="<?= h($id) ?>"<?= isset($standard[$id]) ? ' checked' : '' ?>> <span><?= h($k['navn']) ?></span> <small><?= h(preg_replace('~^https://|/$~', '', $k['side'])) ?></small></label>
+<?php endforeach; ?>
+      </fieldset>
+<?php endforeach; ?>
+      <p><button class="knapp" type="submit">Installer</button></p>
+    </form>
+    <script src="assets/install.js?v=<?= rawurlencode(VERSJON) ?>" defer></script>
 <?php else: ?>
     <p class="feiltekst">Rett det som er merket med rødt, og last siden på nytt.</p>
 <?php endif; ?>

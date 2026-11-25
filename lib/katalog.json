@@ -1,0 +1,367 @@
+{
+ "_om": "Norske (og nordiske) statussider laget med Atlassian Statuspage. Funnet ved å sjekke status.<domene> for virksomheter i Enhetsregisteret og kjente selskaper, kontrollert 2026-11-25. Sjekk på nytt med: php verktoy/sjekk-katalog.php",
+ "kategorier": {
+  "offentlig": {
+   "nb": "Offentlig sektor",
+   "en": "Public sector"
+  },
+  "helse": {
+   "nb": "Helse",
+   "en": "Health"
+  },
+  "bank": {
+   "nb": "Bank, betaling, ID og forsikring",
+   "en": "Banking, payments, ID and insurance"
+  },
+  "programvare": {
+   "nb": "Programvare og IT",
+   "en": "Software and IT"
+  },
+  "logistikk": {
+   "nb": "Post, transport og logistikk",
+   "en": "Post, transport and logistics"
+  },
+  "energi": {
+   "nb": "Energi",
+   "en": "Energy"
+  },
+  "media": {
+   "nb": "Media",
+   "en": "Media"
+  },
+  "annet": {
+   "nb": "Annet",
+   "en": "Other"
+  }
+ },
+ "kilder": [
+  {
+   "id": "digdir",
+   "navn": "Digitaliseringsdirektoratet",
+   "type": "statuspage",
+   "side": "https://status.digdir.no/",
+   "kategori": "offentlig",
+   "komponenter": 40
+  },
+  {
+   "id": "dfo",
+   "navn": "DFØ",
+   "type": "statuspage",
+   "side": "https://status.dfo.no/",
+   "kategori": "offentlig",
+   "komponenter": 40
+  },
+  {
+   "id": "brreg",
+   "navn": "Brønnøysundregistrene",
+   "type": "statuspage",
+   "side": "https://status.brreg.no/",
+   "kategori": "offentlig",
+   "komponenter": 29
+  },
+  {
+   "id": "skatt",
+   "navn": "Skatteetaten",
+   "type": "statuspage",
+   "side": "https://status.skatteetaten.no/",
+   "kategori": "offentlig",
+   "komponenter": 38
+  },
+  {
+   "id": "toll",
+   "navn": "Tolletaten",
+   "type": "statuspage",
+   "side": "https://status.toll.no/",
+   "kategori": "offentlig",
+   "komponenter": 5
+  },
+  {
+   "id": "husbanken",
+   "navn": "Husbanken",
+   "type": "statuspage",
+   "side": "https://status.husbanken.no/",
+   "kategori": "offentlig",
+   "komponenter": 29
+  },
+  {
+   "id": "fiks",
+   "navn": "KS Fiks",
+   "type": "statuspage",
+   "side": "https://status.fiks.ks.no/",
+   "kategori": "offentlig",
+   "komponenter": 28
+  },
+  {
+   "id": "met",
+   "navn": "Meteorologisk institutt",
+   "type": "statuspage",
+   "side": "https://status.met.no/",
+   "kategori": "offentlig",
+   "komponenter": 7
+  },
+  {
+   "id": "nhn",
+   "navn": "Norsk helsenett",
+   "type": "statuspage",
+   "side": "https://status.nhn.no/",
+   "kategori": "helse",
+   "komponenter": 98
+  },
+  {
+   "id": "aidn",
+   "navn": "AIDN",
+   "type": "statuspage",
+   "side": "https://www.aidnstatus.no/",
+   "kategori": "helse",
+   "komponenter": 0
+  },
+  {
+   "id": "fhi",
+   "navn": "Folkehelseinstituttet",
+   "type": "statuspage",
+   "side": "https://status.fhi.no/",
+   "kategori": "helse",
+   "komponenter": 1
+  },
+  {
+   "id": "vipps",
+   "navn": "Vipps MobilePay",
+   "type": "statuspage",
+   "side": "https://status.vippsmobilepay.com/",
+   "kategori": "bank",
+   "komponenter": 50
+  },
+  {
+   "id": "signicat",
+   "navn": "Signicat",
+   "type": "statuspage",
+   "side": "https://status.signicat.com/",
+   "kategori": "bank",
+   "komponenter": 25
+  },
+  {
+   "id": "visma",
+   "navn": "Visma",
+   "type": "statuspage",
+   "side": "https://status.visma.com/",
+   "kategori": "programvare",
+   "komponenter": 390
+  },
+  {
+   "id": "tripletex",
+   "navn": "Tripletex",
+   "type": "statuspage",
+   "side": "https://status.tripletex.no/",
+   "kategori": "programvare",
+   "komponenter": 3
+  },
+  {
+   "id": "24so",
+   "navn": "24SevenOffice",
+   "type": "statuspage",
+   "side": "https://status.24sevenoffice.com/",
+   "kategori": "programvare",
+   "komponenter": 7
+  },
+  {
+   "id": "sticos",
+   "navn": "Sticos",
+   "type": "statuspage",
+   "side": "https://status.sticos.no/",
+   "kategori": "programvare",
+   "komponenter": 10
+  },
+  {
+   "id": "simployer",
+   "navn": "Simployer",
+   "type": "statuspage",
+   "side": "https://status.simployer.com/",
+   "kategori": "programvare",
+   "komponenter": 47
+  },
+  {
+   "id": "smartdok",
+   "navn": "SmartDok",
+   "type": "statuspage",
+   "side": "https://status.smartdok.com/",
+   "kategori": "programvare",
+   "komponenter": 7
+  },
+  {
+   "id": "ccportal",
+   "navn": "Cloud Connection",
+   "type": "statuspage",
+   "side": "https://cloudconnection.statuspage.io/",
+   "kategori": "programvare",
+   "komponenter": 3
+  },
+  {
+   "id": "planday",
+   "navn": "Planday",
+   "type": "statuspage",
+   "side": "https://status.planday.com/",
+   "kategori": "programvare",
+   "komponenter": 7
+  },
+  {
+   "id": "ardoq",
+   "navn": "Ardoq",
+   "type": "statuspage",
+   "side": "https://status.ardoq.com/",
+   "kategori": "programvare",
+   "komponenter": 16
+  },
+  {
+   "id": "cognite",
+   "navn": "Cognite",
+   "type": "statuspage",
+   "side": "https://status.cognite.com/",
+   "kategori": "programvare",
+   "komponenter": 16
+  },
+  {
+   "id": "sanity",
+   "navn": "Sanity",
+   "type": "statuspage",
+   "side": "https://status.sanity.io/",
+   "kategori": "programvare",
+   "komponenter": 25
+  },
+  {
+   "id": "pexip",
+   "navn": "Pexip",
+   "type": "statuspage",
+   "side": "https://status.pexip.com/",
+   "kategori": "programvare",
+   "komponenter": 20
+  },
+  {
+   "id": "kahoot",
+   "navn": "Kahoot!",
+   "type": "statuspage",
+   "side": "https://status.kahoot.com/",
+   "kategori": "programvare",
+   "komponenter": 17
+  },
+  {
+   "id": "spond",
+   "navn": "Spond",
+   "type": "statuspage",
+   "side": "https://status.spond.com/",
+   "kategori": "programvare",
+   "komponenter": 9
+  },
+  {
+   "id": "advania",
+   "navn": "Advania",
+   "type": "statuspage",
+   "side": "https://advania.statuspage.io/",
+   "kategori": "programvare",
+   "komponenter": 36
+  },
+  {
+   "id": "mnemonic",
+   "navn": "mnemonic",
+   "type": "statuspage",
+   "side": "https://mnemonic.statuspage.io/",
+   "kategori": "programvare",
+   "komponenter": 3
+  },
+  {
+   "id": "transponder",
+   "navn": "Transponder",
+   "type": "statuspage",
+   "side": "https://status.transponder.no/",
+   "kategori": "programvare",
+   "komponenter": 6
+  },
+  {
+   "id": "gelato",
+   "navn": "Gelato",
+   "type": "statuspage",
+   "side": "https://status.gelato.com/",
+   "kategori": "programvare",
+   "komponenter": 3
+  },
+  {
+   "id": "digipost",
+   "navn": "Digipost",
+   "type": "statuspage",
+   "side": "https://status.digipost.no/",
+   "kategori": "logistikk",
+   "komponenter": 8
+  },
+  {
+   "id": "bring",
+   "navn": "Bring API",
+   "type": "statuspage",
+   "side": "https://bring.statuspage.io/",
+   "kategori": "logistikk",
+   "komponenter": 14
+  },
+  {
+   "id": "entur",
+   "navn": "Entur",
+   "type": "statuspage",
+   "side": "https://status.entur.org/",
+   "kategori": "logistikk",
+   "komponenter": 28
+  },
+  {
+   "id": "autostore",
+   "navn": "AutoStore",
+   "type": "statuspage",
+   "side": "https://status.autostoresystem.com/",
+   "kategori": "logistikk",
+   "komponenter": 14
+  },
+  {
+   "id": "eidesvik",
+   "navn": "Eidesvik",
+   "type": "statuspage",
+   "side": "https://eidesvik.statuspage.io/",
+   "kategori": "logistikk",
+   "komponenter": 11
+  },
+  {
+   "id": "norclub",
+   "navn": "Norwegian Hull Club",
+   "type": "statuspage",
+   "side": "https://status.norclub.com/",
+   "kategori": "bank",
+   "komponenter": 9
+  },
+  {
+   "id": "tibber",
+   "navn": "Tibber",
+   "type": "statuspage",
+   "side": "https://status.tibber.com/",
+   "kategori": "energi",
+   "komponenter": 83
+  },
+  {
+   "id": "easee",
+   "navn": "Easee",
+   "type": "statuspage",
+   "side": "https://status.easee.com/",
+   "kategori": "energi",
+   "komponenter": 15
+  },
+  {
+   "id": "ntb",
+   "navn": "NTB",
+   "type": "statuspage",
+   "side": "https://status.ntb.no/",
+   "kategori": "media",
+   "komponenter": 9
+  },
+  {
+   "id": "thon",
+   "navn": "Thon Hotels",
+   "type": "statuspage",
+   "side": "https://thon.statuspage.io/",
+   "kategori": "annet",
+   "komponenter": 8
+  }
+ ]
+}

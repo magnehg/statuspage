@@ -15,6 +15,16 @@ som vises, og kan legge til egne (alle sider laget med Atlassian Statuspage). PH
 | Azure | RSS (hendelser) + HTML-siden for regionene (7 MB, hentes hver 6. time, hvert 15. min når RSS har en hendelse) |
 | Sikt | RSS: `sikt.no/driftsmeldinger/rss.xml` («Feilen er rettet» i teksten = løst) |
 
+## Katalogen
+`lib/katalog.json` har 41 norske og nordiske statussider laget med Atlassian Statuspage, i tillegg til de innebygde:
+offentlig sektor (Brønnøysundregistrene, DFØ, Husbanken, MET, Tolletaten …), helse (FHI), bank og betaling (Vipps MobilePay,
+Signicat …), programvare og IT (Visma, Tripletex, 24SevenOffice, Sticos, Simployer, Kahoot!, Spond, Cognite, Sanity, Pexip …),
+post og logistikk (Digipost, Bring API, Entur, AutoStore …), energi (Tibber, Easee), media (NTB) og annet.
+De ble funnet ved å sjekke `status.<domene>`, `driftsstatus.<domene>` og `<navn>.statuspage.io` for virksomhetene med
+nettadresse i Enhetsregisteret (over 100 ansatte og offentlige virksomheter) og en liste kjente selskaper, og bare sider som
+er i bruk er tatt med (ikke test- og eksempelsider). `php verktoy/sjekk-katalog.php` sjekker at de fortsatt svarer.
+Mangler en side, kan den legges til i katalogen eller som egen kilde (`egne_kilder`).
+
 ## Henting
 - **Cron hver time**: `cron.php?nokkel=…` henter alt, også historikken, og rydder opp (hendelser eldre enn 400 dager).
 - **Når noen har siden åpen**: `api.php?a=status` henter på nytt når dataene er eldre enn 5 minutter (`maks_alder`).
@@ -35,7 +45,7 @@ Se `cf/config.eksempel.php`. Det viktigste:
 |---|---|
 | `navn`, `undertittel` | Navnet på siden og linjen over overskriften (standard: vertsnavnet) |
 | `logo`, `ikon` | Logo (76×76) og ikon i fanen, relativt til siden eller https. Standard: `assets/logo.svg` (pulsen). Innebygde alternativer: `assets/logoer/signal.svg`, `assets/logoer/radar.svg`. Egne filer kan ligge i `eget/` (ikke i git) |
-| `kilder` | Hvilke tjenester som vises, i rekkefølge: `['nhn', 'digdir', 'altinn']`. Utelatt = alle |
+| `kilder` | Hvilke tjenester som vises, i rekkefølge: `['nhn', 'digdir', 'visma']`. Velges under installeringen. Utelatt = de innebygde |
 | `egne_kilder` | Egne Statuspage-sider: `'github' => ['navn' => 'GitHub', 'type' => 'statuspage', 'side' => 'https://www.githubstatus.com/']` |
 | `sprak` | Grensesnittet på `nb` (standard) eller `en` |
 | `sprak_valg` | Flaggknappen som lar den som besøker siden bytte språk (standard på) |
@@ -61,7 +71,8 @@ Ved oppdatering av koden: kjør `oppdater.php?nokkel=<nøkkelen>` (eller `php op
 `cf/config.php` skal aldri inn i git eller zip.
 
 ## Filene
-- `install.php` – automatisk installering (sjekker, nøkkel, `cf/config.php`, `data/`, første henting).
+- `install.php` – automatisk installering (sjekker, valg av tjenester, nøkkel, `cf/config.php`, `data/`, første henting).
+- `lib/katalog.json`, `verktoy/sjekk-katalog.php` – katalogen over statussider og kontrollen av den.
 - `index.php`, `assets/` – siden (fanene Status nå og Tidslinje, fire fargetemaer: Mørk, Varm, Blågrønn; ikonknapper).
 - `api.php` – `a=status` og `a=tidslinje` (90 dager tilbake, 14 frem).
 - `lib/kilder.php` (kildene, nivåene), `lib/tolk.php` (én tolker per type), `lib/lagre.php`, `lib/synk.php` (låsen), `lib/http.php`.

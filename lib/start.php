@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-const VERSJON = '0.002';
+const VERSJON = '0.003';
 const DATAVERSJON = 1;
 /** Kildekoden (MIT). Vises nederst på siden; config 'kildekode' kan peke til en egen kopi. */
 const KILDEKODE = 'https://github.com/magnehg/statuspage';

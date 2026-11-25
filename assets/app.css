@@ -214,3 +214,13 @@ h1 { margin: 2px 0 0; font-family: var(--font-h); font-size: clamp(28px, 3.4vw, 
 .sjekker li.feilet::before { content: "✕"; color: var(--nede-ikon); }
 .feiltekst { color: var(--nede-tekst) !important; font-weight: 600; }
 .knapp { display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 10px; border: 0; background: var(--aktiv-bg); color: var(--aktiv-tekst); font-weight: 700; text-decoration: none; cursor: pointer; font-size: 16px; }
+.installskjema { margin-top: 24px; border-top: 1px solid var(--kant); padding-top: 16px; }
+.velgverktoy { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+.velgverktoy input { min-height: 44px; padding: 0 14px; border-radius: 10px; border: 1px solid var(--kant); background: var(--bg); color: var(--tekst); font: inherit; min-width: min(320px, 100%); }
+.kildegruppe { border: 0; margin: 14px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 6px; }
+.kildegruppe legend { font-weight: 700; margin-bottom: 6px; padding: 0; color: var(--tekst); }
+.kildevalg { display: grid; grid-template-columns: auto 1fr; column-gap: 10px; align-items: baseline; padding: 8px 10px; border-radius: 8px; background: var(--bg); cursor: pointer; min-height: 44px; box-sizing: border-box; }
+.kildevalg input { width: 18px; height: 18px; accent-color: var(--ok-ikon); }
+.kildevalg span { color: var(--tekst); font-weight: 600; }
+.kildevalg small { grid-column: 2; color: var(--dempet); font-size: 12px; overflow-wrap: anywhere; }
+.kildevalg[hidden], .kildegruppe[hidden] { display: none; }
