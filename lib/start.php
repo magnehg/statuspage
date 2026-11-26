@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-const VERSJON = '0.003';
+const VERSJON = '0.004';
 const DATAVERSJON = 1;
 /** Kildekoden (MIT). Vises nederst på siden; config 'kildekode' kan peke til en egen kopi. */
 const KILDEKODE = 'https://github.com/magnehg/statuspage';
@@ -43,8 +43,38 @@ function konfig(?array $ny = null): array
 /** En innstilling fra cf/config.php, med standardverdi. */
 function innst(string $nokkel, mixed $standard = null): mixed
 {
-    $v = konfig()[$nokkel] ?? null;
+    $o = in_array($nokkel, REDIGERBARE, true) ? overstyringer() : [];
+    $v = array_key_exists($nokkel, $o) ? $o[$nokkel] : (konfig()[$nokkel] ?? null);
     return ($v === null || $v === '') ? $standard : $v;
+}
+
+/** Innstillinger som kan endres på innstillinger.php. De lagres i data/innstillinger.json og går foran cf/config.php. */
+const REDIGERBARE = ['kilder', 'navn', 'undertittel', 'sprak', 'sprak_valg', 'melding_dager'];
+
+function overstyringer(): array
+{
+    static $o = null;
+    if ($o === null) {
+        $o = [];
+        try {
+            $o = les_json('innstillinger.json');
+        } catch (Throwable) {
+        }
+    }
+    return $o;
+}
+
+/** Hvor mange dager en alvorlig driftsmelding (Altinn) regnes som avvik. */
+function melding_dager(): int
+{
+    return max(1, min(90, (int) innst('melding_dager', 7)));
+}
+
+/** Sjekker nøkkelen mot hashen i cf/config.php. */
+function riktig_nokkel(string $nokkel): bool
+{
+    $hash = (string) (konfig()['cron_nokkel_hash'] ?? '');
+    return $hash !== '' && $nokkel !== '' && password_verify($nokkel, $hash);
 }
 
 /** Navnet på siden (tittel, fanen i nettleseren). */

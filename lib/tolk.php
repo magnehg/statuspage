@@ -197,9 +197,13 @@ function tolk_altinn(string $side): array
     $base = 'https://info.altinn.no';
     $status = 'ok';
     $hendelser = [];
+    // En alvorlig melding (danger/warning) teller som avvik bare de første dagene etter at den sist ble endret
+    // (melding_dager, standard 7). Altinn lar meldinger bli stående lenge etter at problemet er over.
+    $grense = gmdate('Y-m-d H:i:s', time() - melding_dager() * 86400);
     foreach ($artikler as $a) {
         $variant = (string) ($a['colorVariant'] ?? 'info');
-        $alvorlig = in_array($variant, ['danger', 'warning'], true);
+        $endret = utc($a['lastChangedDateString'] ?? null);
+        $alvorlig = in_array($variant, ['danger', 'warning'], true) && ($endret === null || $endret >= $grense);
         $niva = $alvorlig ? 'redusert' : 'melding';
         if ($alvorlig) {
             $status = verst($status, 'redusert');

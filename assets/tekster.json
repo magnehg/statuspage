@@ -99,7 +99,9 @@
     "ops.aktive_meldinger": "{n} aktive meldinger",
     "ops.aktive_meldinger_1": "1 aktiv melding",
     "ops.ingen_aktive_meldinger": "Ingen aktive driftsmeldinger",
-    "kildekode": "Kildekoden på GitHub"
+    "kildekode": "Kildekoden på GitHub",
+    "besk_siste_melding": "Siste driftsmelding {dato}: {tittel}",
+    "innstillinger": "Innstillinger"
   },
   "en": {
     "_locale": "en-GB",
@@ -201,6 +203,8 @@
     "ops.aktive_meldinger": "{n} active notices",
     "ops.aktive_meldinger_1": "1 active notice",
     "ops.ingen_aktive_meldinger": "No active notices",
-    "kildekode": "Source code on GitHub"
+    "kildekode": "Source code on GitHub",
+    "besk_siste_melding": "Latest notice {dato}: {tittel}",
+    "innstillinger": "Settings"
   }
 }

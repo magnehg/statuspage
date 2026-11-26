@@ -327,6 +327,13 @@
       return sp;
     }
     if (k.komponenter && k.komponenter.length) return kildetekst(k.komponenter.map(function (c) { return c.navn; }).slice(0, 3).join(', '));
+    // Bare eldre eller informative driftsmeldinger: vis den nyeste med dato.
+    var meldinger = (status.aktive || []).filter(function (h) { return h.kilde === k.id && h.type === 'melding'; })
+      .sort(function (a, b) { return a.start < b.start ? 1 : -1; });
+    if (meldinger.length) {
+      var m = t('besk_siste_melding', { dato: fmtKort.format(new Date(meldinger[0].start)).replace('.', ''), tittel: '\u0000' }).split('\u0000');
+      return el('span', null, m[0], kildetekst(meldinger[0].tittel), m[1] || '');
+    }
     var neste = (status.kommende || []).filter(function (h) { return h.kilde === k.id; })[0];
     if (neste) {
       var b = t('besk_neste', { tid: naar(neste.start), tittel: '\u0000' }).split('\u0000');

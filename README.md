@@ -38,8 +38,11 @@ i den nye fargen og «Endret/Bedre · Fra … kl. …». Det står uthevet i 15 
 «Merk alt som sett». Det som skjedde mens siden var lukket, blir uthevet i 15 minutter når du åpner den. Antallet står i fanetittelen,
 f.eks. «(2) Driftsstatus», og skjermlesere får det opplest (`#kunngjoring`). Med «reduser bevegelse» blinker ingenting.
 
-## Tilpasning (`cf/config.php`)
-Se `cf/config.eksempel.php`. Det viktigste:
+## Tilpasning
+Det meste endres på **`innstillinger.php`** (lenken «Innstillinger» nederst på siden): tjenestene, navnet, linjen over
+overskriften, standardspråket, flaggknappen og `melding_dager`. Lagring krever nøkkelen fra installeringen. Endringene lagres i
+`data/innstillinger.json` og går foran `cf/config.php`. Resten (logo, egne kilder, User-Agent) står i `cf/config.php`;
+se `cf/config.eksempel.php`:
 
 | Innstilling | Hva |
 |---|---|
@@ -50,6 +53,7 @@ Se `cf/config.eksempel.php`. Det viktigste:
 | `sprak` | Grensesnittet på `nb` (standard) eller `en` |
 | `sprak_valg` | Flaggknappen som lar den som besøker siden bytte språk (standard på) |
 | `kildekode` | Lenken til kildekoden nederst på siden (standard: dette repoet) |
+| `melding_dager` | Hvor mange dager en alvorlig driftsmelding (Altinn) regnes som avvik, standard 7. Etterpå er kortet grønt og viser datoen |
 | `brukeragent` | User-Agent mot kildene; ta gjerne med adressen til siden din |
 
 **Språk:** grensesnittet finnes på norsk bokmål og engelsk (`assets/tekster.json`, samme fil brukes av PHP og nettleseren).
@@ -71,6 +75,7 @@ Ved oppdatering av koden: kjør `oppdater.php?nokkel=<nøkkelen>` (eller `php op
 `cf/config.php` skal aldri inn i git eller zip.
 
 ## Filene
+- `innstillinger.php` – endre tjenester, navn, språk m.m. (krever nøkkelen).
 - `install.php` – automatisk installering (sjekker, valg av tjenester, nøkkel, `cf/config.php`, `data/`, første henting).
 - `lib/katalog.json`, `verktoy/sjekk-katalog.php` – katalogen over statussider og kontrollen av den.
 - `index.php`, `assets/` – siden (fanene Status nå og Tidslinje, fire fargetemaer: Mørk, Varm, Blågrønn; ikonknapper).

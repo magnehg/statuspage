@@ -9,6 +9,7 @@ declare(strict_types=1);
  * Nøkkelen vises bare én gang. Når cf/config.php finnes, gjør skriptet ingenting.
  */
 require __DIR__ . '/lib/start.php';
+require __DIR__ . '/lib/skjema.php';
 
 const MIN_PHP = '8.1.0';
 const DATA_STANDARD = __DIR__ . '/data';
@@ -99,14 +100,6 @@ function basis_url(): string
 }
 
 /** Skriver cf/config.php med hashen av en ny nøkkel. Gir nøkkelen. */
-/** Gyldige kilde-id-er av det som er valgt (i rekkefølgen i mulige_kilder()), eller standardutvalget. */
-function valgte_kilder(array $valgt): array
-{
-    $valgt = array_flip(array_map('strval', $valgt));
-    $ut = array_values(array_filter(array_keys(mulige_kilder()), fn ($id) => isset($valgt[$id])));
-    return $ut ?: standard_kilder();
-}
-
 function installer(array $kilder): array
 {
     $nokkel = bin2hex(random_bytes(16));
@@ -251,26 +244,7 @@ $base = basis_url();
       <h2>Hvilke tjenester skal vises?</h2>
       <p>De innebygde er valgt. Du kan endre utvalget senere i <code>cf/config.php</code> (<code>kilder</code>).</p>
       <p class="velgverktoy"><label class="skjult" for="kildeSok">Søk</label><input type="search" id="kildeSok" placeholder="Søk etter tjeneste …" autocomplete="off"> <span id="antallValgt" aria-live="polite"></span></p>
-<?php
-    $grupper = [];
-    foreach (mulige_kilder() as $id => $k) {
-        $grupper[$k['kategori'] ?? 'annet'][$id] = $k;
-    }
-    $kat = katalog()['kategorier'] + ['egne' => ['nb' => 'Egne kilder']];
-    $standard = array_flip(standard_kilder());
-    foreach ($kat as $kode => $tekst):
-        if (empty($grupper[$kode])) {
-            continue;
-        }
-        uasort($grupper[$kode], fn ($a, $b) => strcmp(mb_strtolower($a['navn']), mb_strtolower($b['navn'])));
-?>
-      <fieldset class="kildegruppe">
-        <legend><?= h($tekst['nb'] ?? $kode) ?></legend>
-<?php foreach ($grupper[$kode] as $id => $k): ?>
-        <label class="kildevalg"><input type="checkbox" name="kilder[]" value="<?= h($id) ?>"<?= isset($standard[$id]) ? ' checked' : '' ?>> <span><?= h($k['navn']) ?></span> <small><?= h(preg_replace('~^https://|/$~', '', $k['side'])) ?></small></label>
-<?php endforeach; ?>
-      </fieldset>
-<?php endforeach; ?>
+<?= kildevalg_html(standard_kilder()) ?>
       <p><button class="knapp" type="submit">Installer</button></p>
     </form>
     <script src="assets/install.js?v=<?= rawurlencode(VERSJON) ?>" defer></script>

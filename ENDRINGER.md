@@ -1,5 +1,12 @@
 # Endringer
 
+## 0.004 – 26.11.2026
+- Ny side `innstillinger.php` (lenke nederst på siden): velg tjenester, navn, linjen over overskriften, standardspråk,
+  flaggknappen og hvor lenge driftsmeldinger regnes som avvik. Krever nøkkelen ved hver lagring; ingen informasjonskapsler.
+  Lagres i `data/innstillinger.json`, som går foran `cf/config.php`. Nye tjenester hentes med en gang.
+- Altinn: en alvorlig driftsmelding regnes som avvik bare i 7 dager (`melding_dager`) fra den sist ble endret.
+  Etterpå er kortet grønt og viser «Siste driftsmelding 13. nov.: …».
+
 ## 0.003 – 25.11.2026
 - Katalog med 41 norske og nordiske statussider laget med Atlassian Statuspage (`lib/katalog.json`), gruppert
   (offentlig sektor, helse, bank og betaling, programvare og IT, post og logistikk, energi, media, annet).

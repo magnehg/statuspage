@@ -224,3 +224,12 @@ h1 { margin: 2px 0 0; font-family: var(--font-h); font-size: clamp(28px, 3.4vw, 
 .kildevalg span { color: var(--tekst); font-weight: 600; }
 .kildevalg small { grid-column: 2; color: var(--dempet); font-size: 12px; overflow-wrap: anywhere; }
 .kildevalg[hidden], .kildegruppe[hidden] { display: none; }
+.innstillingsskjema h2 { margin-top: 22px; }
+.innstillingsskjema h2:first-child { margin-top: 0; }
+.felter { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px 16px; }
+.felter label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; color: var(--tekst); }
+.felter input, .felter select { min-height: 44px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--kant); background: var(--bg); color: var(--tekst); font: inherit; font-weight: 400; }
+.avkryss { display: flex; align-items: center; gap: 10px; margin-top: 14px; min-height: 44px; color: var(--tekst); }
+.avkryss input { width: 18px; height: 18px; accent-color: var(--ok-ikon); }
+.boks.feiltekst { border-color: var(--nede-ikon); }
+.bunn .innst-lenke { margin-left: 10px; color: var(--dempet); }
